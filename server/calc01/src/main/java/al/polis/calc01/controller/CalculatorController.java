@@ -1,8 +1,12 @@
 package al.polis.calc01.controller;
 
+import al.polis.calc01.dto.AddTaskReqDto;
+import al.polis.calc01.dto.AddTaskRespDto;
 import al.polis.calc01.dto.RequestDto;
 import al.polis.calc01.dto.ResultDto;
 import al.polis.calc01.service.CalculatorService;
+import al.polis.calc01.service.TodoListService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +21,8 @@ public class CalculatorController {
 
     @Autowired
     CalculatorService calculatorService;
+    @Autowired
+    TodoListService todoListService;
 
     // each method will "map" an http request
     @GetMapping("/greet-me")
@@ -37,5 +43,14 @@ public class CalculatorController {
         res.setResult(r);
         System.out.println("Exiting the controller");
         return res;
+    }
+
+    @PostMapping("/add-task")
+    @ResponseBody
+    public AddTaskRespDto addTask(@RequestBody AddTaskReqDto dto) {
+        List<String> tx = todoListService.addTask(dto.getTask());
+        AddTaskRespDto r = new AddTaskRespDto();
+        r.setTasks(tx);
+        return r;
     }
 }

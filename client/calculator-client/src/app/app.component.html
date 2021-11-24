@@ -5,3 +5,12 @@
 <input type="number" [(ngModel)]="second">
 <button (click)="sum()">+</button>
 {{result}}
+<hr>
+What do you want to do? 
+<input type="text" [(ngModel)]="task">
+<button (click)="addTask()">Add to todo list</button>
+<ol>
+  <li *ngFor="let t of tasks">
+    {{t}}
+  </li>
+</ol>
