@@ -1,10 +1,11 @@
+import { RemoveTaskReqDto } from './remove-task-dtos';
 import { AddTaskReqDto } from './add-task-req-dto';
 import { RequestDto } from './request-dto';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResponseDto } from './response-dto';
 import { HttpClient } from '@angular/common/http';
-import { AddTaskRespDto } from './add-task-resp-dto';
+import { TasksRespDto } from './add-task-resp-dto';
 
 @Component({
   selector: 'app-root',
@@ -45,8 +46,21 @@ export class AppComponent {
     let dto = new AddTaskReqDto();
     dto.task = this.task;
     // prepare the request
-    let obs: Observable<AddTaskRespDto> = this.http
-      .post<AddTaskRespDto>("http://localhost:8080/add-task", dto);
+    let obs: Observable<TasksRespDto> = this.http
+      .post<TasksRespDto>("http://localhost:8080/add-task", dto);
+    // send the request giving the callback
+    obs.subscribe(r => {
+      this.tasks = r.tasks;
+    });
+  }
+
+  deleteTask(i: number) {
+    // prepare data to be sent
+    let dto = new RemoveTaskReqDto();
+    dto.taskIndex = i;
+    // prepare the request
+    let obs: Observable<TasksRespDto> = this.http
+      .post<TasksRespDto>("http://localhost:8080/remove-task", dto);
     // send the request giving the callback
     obs.subscribe(r => {
       this.tasks = r.tasks;

@@ -5,4 +5,6 @@ import java.util.List;
 public interface TodoListService {
 
     List<String> addTask(String task);
+
+    List<String> removeTask(int taskIndex);
 }

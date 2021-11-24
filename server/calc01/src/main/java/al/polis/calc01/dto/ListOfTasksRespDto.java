@@ -3,11 +3,11 @@ package al.polis.calc01.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddTaskRespDto {
+public class ListOfTasksRespDto {
 
     private List<String> tasks = new ArrayList<>();
 
-    public AddTaskRespDto() {
+    public ListOfTasksRespDto() {
     }
 
     public List<String> getTasks() {

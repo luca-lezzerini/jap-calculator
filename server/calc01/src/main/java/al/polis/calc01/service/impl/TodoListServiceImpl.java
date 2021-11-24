@@ -19,4 +19,10 @@ public class TodoListServiceImpl implements TodoListService {
         return tasks;
     }
 
+    @Override
+    public List<String> removeTask(int taskIndex) {
+        tasks.remove(taskIndex);
+        return tasks;
+    }
+
 }

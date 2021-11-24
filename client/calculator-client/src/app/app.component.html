@@ -10,7 +10,8 @@ What do you want to do?
 <input type="text" [(ngModel)]="task">
 <button (click)="addTask()">Add to todo list</button>
 <ol>
-  <li *ngFor="let t of tasks">
+  <li *ngFor="let t of tasks; index as i">
     {{t}}
+    <button (click)="deleteTask(i)">X</button>
   </li>
 </ol>

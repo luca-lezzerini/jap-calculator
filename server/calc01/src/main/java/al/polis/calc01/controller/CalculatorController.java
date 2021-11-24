@@ -1,7 +1,8 @@
 package al.polis.calc01.controller;
 
 import al.polis.calc01.dto.AddTaskReqDto;
-import al.polis.calc01.dto.AddTaskRespDto;
+import al.polis.calc01.dto.ListOfTasksRespDto;
+import al.polis.calc01.dto.RemoveTaskReqDto;
 import al.polis.calc01.dto.RequestDto;
 import al.polis.calc01.dto.ResultDto;
 import al.polis.calc01.service.CalculatorService;
@@ -47,9 +48,20 @@ public class CalculatorController {
 
     @PostMapping("/add-task")
     @ResponseBody
-    public AddTaskRespDto addTask(@RequestBody AddTaskReqDto dto) {
+    public ListOfTasksRespDto addTask(@RequestBody AddTaskReqDto dto) {
         List<String> tx = todoListService.addTask(dto.getTask());
-        AddTaskRespDto r = new AddTaskRespDto();
+        // prepare the response
+        ListOfTasksRespDto r = new ListOfTasksRespDto();
+        r.setTasks(tx);
+        return r;
+    }
+    
+    @PostMapping("/remove-task")
+    @ResponseBody
+    public ListOfTasksRespDto addTask(@RequestBody RemoveTaskReqDto dto) {
+        List<String> tx = todoListService.removeTask(dto.getTaskIndex());
+        // prepare the response
+        ListOfTasksRespDto r = new ListOfTasksRespDto();
         r.setTasks(tx);
         return r;
     }
